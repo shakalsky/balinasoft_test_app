@@ -1,7 +1,8 @@
-import 'package:balinasoft_test_app/data/repositories/user_repository.dart';
 import 'package:balinasoft_test_app/dependency_injector.dart';
 import 'package:balinasoft_test_app/pages/authorization/authorization_presenter.dart';
 import 'package:balinasoft_test_app/pages/authorization/widgets/keep_alive.dart';
+import 'package:balinasoft_test_app/pages/authorization/widgets/sign_in_form.dart';
+import 'package:balinasoft_test_app/pages/authorization/widgets/sign_up_form.dart';
 import 'package:balinasoft_test_app/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -14,8 +15,6 @@ class AuthorizationPage extends StatefulWidget {
 
 class _AuthorizationPageState extends State<AuthorizationPage>
     implements AuthorizationPageContract {
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
-
   late final AuthorizationPresenter presenter;
 
   @override
@@ -28,7 +27,7 @@ class _AuthorizationPageState extends State<AuthorizationPage>
   loginSuccess() {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (_) => HomePage()),
+      MaterialPageRoute(builder: (_) => const HomePage()),
     );
   }
 
@@ -48,15 +47,15 @@ class _AuthorizationPageState extends State<AuthorizationPage>
         child: Column(
           children: <Widget>[
             _tabBar(),
-            Expanded(
+            const Expanded(
               child: TabBarView(
-                physics: const NeverScrollableScrollPhysics(),
+                physics: NeverScrollableScrollPhysics(),
                 children: <Widget>[
                   KeepAlivePage(
-                    child: _signInTab(),
+                    child: SignInForm(),
                   ),
                   KeepAlivePage(
-                    child: _signUpTab(),
+                    child: SignUpForm(),
                   ),
                 ],
               ),

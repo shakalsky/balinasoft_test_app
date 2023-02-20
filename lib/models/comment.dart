@@ -1,15 +1,25 @@
 import 'package:equatable/equatable.dart';
 
-class Comment extends Equatable {
-  final int id;
+class CreateComment extends Equatable {
   final String text;
+
+  const CreateComment({required this.text});
+
+  Map<String, dynamic> toJson() => {'text': text};
+
+  @override
+  List<Object?> get props => [text];
+}
+
+class Comment extends CreateComment {
+  final int id;
   final DateTime date;
 
   const Comment({
     required this.id,
     required this.date,
-    required this.text,
-  });
+    required String text,
+  }) : super(text: text);
 
   static Comment fromJson(Map<String, dynamic> json) {
     return Comment(

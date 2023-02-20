@@ -15,7 +15,6 @@ class CreateImage extends Equatable {
     required this.longitude,
   });
 
-  @override
   Map<String, dynamic> toJson() => {
         'url': imageUrl ?? '',
         'date': date.millisecondsSinceEpoch,

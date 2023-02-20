@@ -1,3 +1,4 @@
+import 'package:balinasoft_test_app/models/comment.dart';
 import 'package:balinasoft_test_app/models/image.dart';
 
 abstract class IRemoteDataSource {
@@ -9,6 +10,6 @@ abstract class IRemoteDataSource {
   Future<bool> deleteImage(String token, int id);
 
   Future<Map<String, dynamic>> getComments(String token, int imageId, int page);
-  Future<Map<String, dynamic>> createComment(String token, int imageId, String text);
+  Future<Map<String, dynamic>> createComment(String token, int imageId, CreateComment text);
   Future<bool> deleteComment(String token, int imageId, int commentId);
 }
