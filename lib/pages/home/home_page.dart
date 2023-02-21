@@ -1,3 +1,4 @@
+import 'package:balinasoft_test_app/pages/home/home_presenter.dart';
 import 'package:balinasoft_test_app/pages/map/map_page.dart';
 import 'package:balinasoft_test_app/pages/photo/gallery/photo_page.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,20 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> implements HomePageContract {
+  late final HomePagePresenter presenter;
+
+  @override
+  void initState() {
+    super.initState();
+    presenter = HomePagePresenter(this);
+  }
+
+  @override
+  void stateManager() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

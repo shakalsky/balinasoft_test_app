@@ -7,7 +7,7 @@ abstract class AuthorizationPageContract {
   void registrationSuccess();
   void registrationError();
 
-  void authorizationManager();
+  void stateManager();
 }
 
 class AuthorizationPresenter {
@@ -25,7 +25,7 @@ class AuthorizationPresenter {
   }
 
   void login(String login, String password) async {
-    _viewContract.authorizationManager();
+    _viewContract.stateManager();
 
     try {
       await _repository.getUser(login, password);
@@ -34,11 +34,11 @@ class AuthorizationPresenter {
       _viewContract.loginError();
     }
 
-    _viewContract.authorizationManager();
+    _viewContract.stateManager();
   }
 
   void register(String login, String password) async {
-    _viewContract.authorizationManager();
+    _viewContract.stateManager();
 
     try {
       await _repository.createUser(login, password);
@@ -47,6 +47,6 @@ class AuthorizationPresenter {
       _viewContract.registrationError();
     }
 
-    _viewContract.authorizationManager();
+    _viewContract.stateManager();
   }
 }

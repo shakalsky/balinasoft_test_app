@@ -35,7 +35,7 @@ class _AuthorizationPageState extends State<AuthorizationPage>
   loginError() {}
 
   @override
-  void authorizationManager() {
+  void stateManager() {
     setState(() {});
   }
 
@@ -101,8 +101,6 @@ class _AuthorizationPageState extends State<AuthorizationPage>
       ),
     );
   }
-
-  //presenter.login
 
   @override
   void registrationError() {

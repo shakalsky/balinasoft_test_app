@@ -1,4 +1,5 @@
-import 'package:balinasoft_test_app/pages/photo/widgets/photo_grid.dart';
+import 'package:balinasoft_test_app/dependency_injector.dart';
+import 'package:balinasoft_test_app/pages/photo/gallery/photo_presenter.dart';
 import 'package:flutter/material.dart';
 
 class PhotoPage extends StatefulWidget {
@@ -8,7 +9,20 @@ class PhotoPage extends StatefulWidget {
   State<PhotoPage> createState() => _PhotoPageState();
 }
 
-class _PhotoPageState extends State<PhotoPage> {
+class _PhotoPageState extends State<PhotoPage> implements PhotoPageContract {
+  late final PhotoPagePresenter presenter;
+
+  @override
+  void initState() {
+    super.initState();
+    presenter = PhotoPagePresenter(this, i.get());
+  }
+
+  @override
+  void stateManager() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +32,14 @@ class _PhotoPageState extends State<PhotoPage> {
         ),
         itemCount: 5,
         itemBuilder: (_, index) {
-          return PhotoGrid();
+          return GridTile(
+            child: SizedBox(
+              height: 40.0,
+              width: 40.0,
+              child: Image.network('url'),
+            ),
+            footer: Text(DateTime.now().toString()),
+          );
         },
       ),
       floatingActionButton: FloatingActionButton(

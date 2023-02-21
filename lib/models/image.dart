@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:balinasoft_test_app/data/hive/hive_image.dart';
 import 'package:equatable/equatable.dart';
 
 class CreateImage extends Equatable {
@@ -65,4 +66,16 @@ class Image extends CreateImage {
         latitude,
         longitude,
       ];
+}
+
+extension DomainImageMapper on Image {
+  ImageDb toHive() {
+    return ImageDb(
+      id: id,
+      dateTime: date,
+      imagePath: imageUrl,
+      latitude: latitude,
+      longitude: longitude,
+    );
+  }
 }

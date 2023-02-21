@@ -1,6 +1,6 @@
+import 'package:balinasoft_test_app/data/hive/database_data_source.dart';
 import 'package:balinasoft_test_app/data/interfaces/i_local_data_source.dart';
 import 'package:balinasoft_test_app/data/interfaces/i_remote_data_source.dart';
-import 'package:balinasoft_test_app/data/local_data_source.dart';
 import 'package:balinasoft_test_app/data/remote_data_source.dart';
 import 'package:balinasoft_test_app/data/repositories/comment_repository.dart';
 import 'package:balinasoft_test_app/data/repositories/image_repository.dart';
@@ -17,7 +17,7 @@ void initInjector() {
     RemoteDataSource(),
   );
   i.registerSingleton<ILocalDataSource>(
-    LocalDataSource(),
+    DatabaseDataSource(),
   );
   i.registerSingleton<IUserRepository>(
     UserRepository(i.get()),
