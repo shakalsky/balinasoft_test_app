@@ -1,4 +1,4 @@
 ## Getting Started
 
-flutter pub get
-flutter pub run build_runner build
+<p>flutter pub get</p>
+<p>flutter pub run build_runner build</p>
