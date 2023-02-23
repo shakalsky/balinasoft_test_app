@@ -16,7 +16,7 @@ class _DetailedPhotoPageState extends State<DetailedPhotoPage>
   @override
   void initState() {
     super.initState();
-    presenter = DetailedPhotoPagePresenter(this, i.get());
+    presenter = DetailedPhotoPagePresenter(this);
   }
 
   @override

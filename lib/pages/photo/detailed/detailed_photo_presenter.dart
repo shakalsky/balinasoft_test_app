@@ -7,14 +7,11 @@ abstract class DetailedPhotoPageContract {
 
 class DetailedPhotoPagePresenter {
   final DetailedPhotoPageContract _viewContract;
-  final CommentRepository _commentRepository;
+  final CommentRepository _commentRepository = CommentRepository();
 
   final comments = <Comment>[];
 
-  DetailedPhotoPagePresenter(
-    this._viewContract,
-    this._commentRepository,
-  );
+  DetailedPhotoPagePresenter(this._viewContract);
 
   void getComments(String token, int imageId) async {
     comments.addAll(await _commentRepository.getComments(token, imageId, 0));

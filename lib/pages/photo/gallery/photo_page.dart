@@ -15,7 +15,7 @@ class _PhotoPageState extends State<PhotoPage> implements PhotoPageContract {
   @override
   void initState() {
     super.initState();
-    presenter = PhotoPagePresenter(this, i.get());
+    presenter = PhotoPagePresenter(this);
   }
 
   @override
@@ -26,24 +26,39 @@ class _PhotoPageState extends State<PhotoPage> implements PhotoPageContract {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+          ),
+          itemCount: 5,
+          itemBuilder: (_, index) {
+            return Padding(
+              padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
+              child: GridTile(
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: Image.network(
+                        'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/800px-Image_created_with_a_mobile_phone.png',
+                        fit: BoxFit.fitHeight,
+                      ),
+                    ),
+                    Text(
+                      '${DateTime.now().day}.${DateTime.now().month}.${DateTime.now().year}',
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
         ),
-        itemCount: 5,
-        itemBuilder: (_, index) {
-          return GridTile(
-            child: SizedBox(
-              height: 40.0,
-              width: 40.0,
-              child: Image.network('url'),
-            ),
-            footer: Text(DateTime.now().toString()),
-          );
-        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
+        child: const Icon(Icons.add),
       ),
     );
   }

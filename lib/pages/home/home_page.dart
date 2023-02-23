@@ -27,20 +27,24 @@ class _HomePageState extends State<HomePage> implements HomePageContract {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('title')),
-      body: const Center(
-        child: Text('My Page!'),
-      ),
+      appBar: AppBar(),
+      body: const PhotoPage(),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            const DrawerHeader(
-              child: Text('Drawer Header'),
+            DrawerHeader(
+              decoration: BoxDecoration(color: Theme.of(context).colorScheme.primary),
+              child: Container(
+                padding: const EdgeInsets.all(16.0),
+                alignment: Alignment.bottomLeft,
+                child: const Text(
+                  "Username",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
             ),
-            ListTile(
-              leading: const Icon(Icons.account_circle),
-              title: const Text('Photos'),
+            GestureDetector(
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -48,10 +52,24 @@ class _HomePageState extends State<HomePage> implements HomePageContract {
                   ),
                 );
               },
+              child: Row(
+                children: const [
+                  SizedBox(
+                    width: 16.0,
+                  ),
+                  Icon(
+                    Icons.account_circle,
+                    size: 48.0,
+                  ),
+                  SizedBox(
+                    width: 16.0,
+                  ),
+                  Text('Photos'),
+                  Spacer(),
+                ],
+              ),
             ),
-            ListTile(
-              leading: const Icon(Icons.public),
-              title: const Text('Map'),
+            GestureDetector(
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -59,6 +77,21 @@ class _HomePageState extends State<HomePage> implements HomePageContract {
                   ),
                 );
               },
+              child: Row(
+                children: const [
+                  SizedBox(
+                    width: 16.0,
+                  ),
+                  Icon(
+                    Icons.public,
+                    size: 48.0,
+                  ),
+                  SizedBox(
+                    width: 16.0,
+                  ),
+                  Text('Map'),
+                ],
+              ),
             ),
           ],
         ),

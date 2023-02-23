@@ -1,8 +1,7 @@
-import 'package:balinasoft_test_app/dependency_injector.dart';
 import 'package:balinasoft_test_app/pages/authorization/authorization_presenter.dart';
 import 'package:balinasoft_test_app/pages/authorization/widgets/keep_alive.dart';
-import 'package:balinasoft_test_app/pages/authorization/widgets/sign_in_form.dart';
 import 'package:balinasoft_test_app/pages/authorization/widgets/sign_up_form.dart';
+import 'package:balinasoft_test_app/pages/authorization/widgets/sign_in_form.dart';
 import 'package:balinasoft_test_app/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +19,8 @@ class _AuthorizationPageState extends State<AuthorizationPage>
   @override
   void initState() {
     super.initState();
-    presenter = AuthorizationPresenter(this, i.get());
+
+    presenter = AuthorizationPresenter(this);
   }
 
   @override
@@ -42,6 +42,10 @@ class _AuthorizationPageState extends State<AuthorizationPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        elevation: 0,
+      ),
       body: DefaultTabController(
         length: 2,
         child: Column(
@@ -68,9 +72,12 @@ class _AuthorizationPageState extends State<AuthorizationPage>
 
   Widget _tabBar() {
     return Container(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 0.0),
+      height: 40.0,
+      color: Theme.of(context).colorScheme.primary,
       child: TabBar(
         indicatorColor: Colors.white,
+        indicatorWeight: 4.0,
         onTap: (tab) => presenter.switchTab(tab),
         tabs: <Widget>[
           _tab(

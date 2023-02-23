@@ -1,3 +1,4 @@
+import 'package:balinasoft_test_app/data/remote_data_source.dart';
 import 'package:balinasoft_test_app/data/repositories/user_repository.dart';
 
 abstract class AuthorizationPageContract {
@@ -11,12 +12,12 @@ abstract class AuthorizationPageContract {
 }
 
 class AuthorizationPresenter {
-  final UserRepository _repository;
+  final UserRepository _repository = UserRepository(RemoteDataSource());
   final AuthorizationPageContract _viewContract;
   bool isLoading = false;
   int selectedTab = 0;
 
-  AuthorizationPresenter(this._viewContract, this._repository);
+  AuthorizationPresenter(this._viewContract);
 
   void switchTab(int tabNumber) {
     if (tabNumber < 2) {
