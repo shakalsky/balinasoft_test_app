@@ -43,14 +43,15 @@ class DatabaseDataSource extends ILocalDataSource {
 
     return List<Image>.generate(
       result.length,
-      (ind) => (result.elementAt(ind)).apiFromHive() as Image,
+      (ind) => (result.elementAt(ind) as ImageDb).apiFromHive() as Image,
     );
   }
 
   @override
   Future<void> saveImages(List<Image> images) async {
     final map = {for (final image in images) image.id: image.toHive()};
-    await _boxes[Image]!.putAll(map.map((key, value) => MapEntry(key, value)));
+    await _boxes[Image]!
+        .putAll(map.map((key, value) => MapEntry(key, value as ImageDb)) as dynamic);
   }
 
   @override

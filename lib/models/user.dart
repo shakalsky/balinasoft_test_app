@@ -12,10 +12,11 @@ class User extends Equatable {
   });
 
   static User fromJson(Map<String, dynamic> json) {
+    Map data = json['data'];
     return User(
-      id: json['userId'],
-      login: json['login'],
-      token: json['token'],
+      id: data['userId'],
+      login: data['login'],
+      token: data['token'],
     );
   }
 

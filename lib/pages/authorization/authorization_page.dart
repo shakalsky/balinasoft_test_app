@@ -24,17 +24,6 @@ class _AuthorizationPageState extends State<AuthorizationPage>
   }
 
   @override
-  loginSuccess() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (_) => const HomePage()),
-    );
-  }
-
-  @override
-  loginError() {}
-
-  @override
   void stateManager() {
     setState(() {});
   }
@@ -51,15 +40,23 @@ class _AuthorizationPageState extends State<AuthorizationPage>
         child: Column(
           children: <Widget>[
             _tabBar(),
-            const Expanded(
+            Expanded(
               child: TabBarView(
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 children: <Widget>[
                   KeepAlivePage(
-                    child: SignInForm(),
+                    child: SignInForm(
+                      onLoginTap: (login, password) => presenter.login(login, password),
+                    ),
                   ),
                   KeepAlivePage(
-                    child: SignUpForm(),
+                    child: SignUpForm(
+                      onRegisterTap: (login, password, repeated) => presenter.register(
+                        login,
+                        password,
+                        repeated,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -103,19 +100,80 @@ class _AuthorizationPageState extends State<AuthorizationPage>
         color: Theme.of(context).colorScheme.primary,
         child: Text(
           text,
-          style: TextStyle(fontWeight: isSelected ? FontWeight.bold : FontWeight.normal),
+          style: TextStyle(
+            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+          ),
         ),
       ),
     );
   }
 
   @override
-  void registrationError() {
-    // TODO: implement registrationError
+  loginSuccess() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const HomePage(),
+      ),
+    );
+  }
+
+  @override
+  loginError() {
+    showDialog(
+      context: context,
+      builder: (_) => SimpleDialog(
+        title: const Text('error'),
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: const [
+              Text('login error'),
+              SizedBox(width: 16.0),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  @override
+  void registrationError(String errText) {
+    showDialog(
+      context: context,
+      builder: (_) => SimpleDialog(
+        title: const Text('registration error'),
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Text(errText),
+              ),
+            ],
+          )
+        ],
+      ),
+    );
   }
 
   @override
   void registrationSuccess() {
-    // TODO: implement registrationSuccess
+    showDialog(
+      context: context,
+      builder: (_) => SimpleDialog(
+        title: const Text('Info'),
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: const [
+              Text('registered successfully'),
+              SizedBox(width: 16.0),
+            ],
+          )
+        ],
+      ),
+    );
   }
 }

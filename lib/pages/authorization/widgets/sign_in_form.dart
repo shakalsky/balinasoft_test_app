@@ -3,8 +3,15 @@ import 'package:balinasoft_test_app/pages/authorization/widgets/input_field.dart
 import 'package:balinasoft_test_app/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
 
+typedef LoginFunction = Function(String, String);
+
 class SignInForm extends StatefulWidget {
-  const SignInForm({super.key});
+  final LoginFunction onLoginTap;
+
+  const SignInForm({
+    super.key,
+    required this.onLoginTap,
+  });
 
   @override
   State<SignInForm> createState() => _SignInFormState();
@@ -34,14 +41,7 @@ class _SignInFormState extends State<SignInForm> {
           const SizedBox(height: 24.0),
           AppButton(
             name: 'LOG IN',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const HomePage(),
-                ),
-              );
-            },
+            onTap: () => widget.onLoginTap(_loginController.text, _passwordController.text),
           )
         ],
       ),

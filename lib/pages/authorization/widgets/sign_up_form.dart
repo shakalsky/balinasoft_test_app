@@ -2,8 +2,15 @@ import 'package:balinasoft_test_app/pages/authorization/widgets/button.dart';
 import 'package:balinasoft_test_app/pages/authorization/widgets/input_field.dart';
 import 'package:flutter/material.dart';
 
+typedef RegistrationFunction = Function(String, String, String);
+
 class SignUpForm extends StatefulWidget {
-  const SignUpForm({super.key});
+  final RegistrationFunction onRegisterTap;
+
+  const SignUpForm({
+    super.key,
+    required this.onRegisterTap,
+  });
 
   @override
   State<SignUpForm> createState() => _SignUpFormState();
@@ -40,7 +47,11 @@ class _SignUpFormState extends State<SignUpForm> {
           const SizedBox(height: 24.0),
           AppButton(
             name: 'SIGN UP',
-            onTap: () => print('tap'),
+            onTap: () => widget.onRegisterTap(
+              _loginController.text,
+              _passwordController.text,
+              _passwordRepeatedController.text,
+            ),
           )
         ],
       ),

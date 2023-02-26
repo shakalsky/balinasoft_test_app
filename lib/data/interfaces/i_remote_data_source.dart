@@ -5,11 +5,11 @@ abstract class IRemoteDataSource {
   Future<Map<String, dynamic>> signIn(String login, String password);
   Future<Map<String, dynamic>> signUp(String login, String password);
 
-  Future<Map<String, dynamic>> getImages(String token, int page);
-  Future<Map<String, dynamic>> createImage(String token, CreateImage image);
+  Future<List<dynamic>> getImages(String token, int page);
+  Future<bool> createImage(String token, CreateImage image, List<int> bytes);
   Future<bool> deleteImage(String token, int id);
 
-  Future<Map<String, dynamic>> getComments(String token, int imageId, int page);
-  Future<Map<String, dynamic>> createComment(String token, int imageId, CreateComment text);
+  Future<List<dynamic>> getComments(String token, int imageId, int page);
+  Future<bool> createComment(String token, int imageId, CreateComment text);
   Future<bool> deleteComment(String token, int imageId, int commentId);
 }

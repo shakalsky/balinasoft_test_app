@@ -22,7 +22,6 @@ class _AppTextInputState extends State<AppTextInput> {
     return TextField(
       controller: widget.controller,
       decoration: InputDecoration(
-        // border: InputBorder.none,
         hintText: widget.hintText,
       ),
       obscureText: widget.hideInputText,

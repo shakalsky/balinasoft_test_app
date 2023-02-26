@@ -6,7 +6,7 @@ abstract class AuthorizationPageContract {
   void loginError();
 
   void registrationSuccess();
-  void registrationError();
+  void registrationError(String errText);
 
   void stateManager();
 }
@@ -38,14 +38,23 @@ class AuthorizationPresenter {
     _viewContract.stateManager();
   }
 
-  void register(String login, String password) async {
+  void register(String login, String password, String repeated) async {
     _viewContract.stateManager();
+    if (password != repeated) {
+      _viewContract.registrationError('passwords are different');
+      return;
+    }
+
+    if (password.length < 8) {
+      _viewContract.registrationError('passwords is too short');
+      return;
+    }
 
     try {
       await _repository.createUser(login, password);
       _viewContract.registrationSuccess();
     } catch (_) {
-      _viewContract.registrationError();
+      _viewContract.registrationError('server error');
     }
 
     _viewContract.stateManager();

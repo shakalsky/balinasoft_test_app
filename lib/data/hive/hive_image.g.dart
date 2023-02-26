@@ -19,9 +19,9 @@ class ImageDbAdapter extends TypeAdapter<ImageDb> {
     return ImageDb(
       id: fields[0] as int,
       dateTime: fields[1] as DateTime,
-      imagePath: fields[2] as String?,
-      latitude: fields[3] as Double,
-      longitude: fields[4] as Double,
+      imagePath: fields[2] as String,
+      latitude: fields[3] as double?,
+      longitude: fields[4] as double?,
     );
   }
 

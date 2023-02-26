@@ -1,31 +1,31 @@
-import 'dart:ffi';
+import 'dart:convert';
 
 import 'package:balinasoft_test_app/data/hive/hive_image.dart';
 import 'package:equatable/equatable.dart';
 
 class CreateImage extends Equatable {
-  final String? imageUrl;
+  final String imagePath;
   final DateTime date;
-  final Double latitude;
-  final Double longitude;
+  final double? latitude;
+  final double? longitude;
 
   const CreateImage({
-    this.imageUrl,
+    required this.imagePath,
     required this.date,
-    required this.latitude,
-    required this.longitude,
+    this.latitude,
+    this.longitude,
   });
 
-  Map<String, dynamic> toJson() => {
-        'url': imageUrl ?? '',
-        'date': date.millisecondsSinceEpoch,
+  Map<String, dynamic> toJson(List<int> image) => {
+        'base64Image': base64.encode(image).toString(),
+        'date': (date.millisecondsSinceEpoch / 1000).round(),
         'lat': latitude,
         'lng': longitude,
       };
 
   @override
   List<Object?> get props => [
-        imageUrl,
+        imagePath,
         date,
         latitude,
         longitude,
@@ -37,13 +37,13 @@ class Image extends CreateImage {
 
   const Image({
     required this.id,
+    required String imagePath,
     required DateTime date,
-    required Double latitude,
-    required Double longitude,
-    String? imageUrl,
+    double? latitude,
+    double? longitude,
   }) : super(
           date: date,
-          imageUrl: imageUrl,
+          imagePath: imagePath,
           latitude: latitude,
           longitude: longitude,
         );
@@ -51,8 +51,8 @@ class Image extends CreateImage {
   static Image fromJson(Map<String, dynamic> json) {
     return Image(
       id: json['id'],
-      imageUrl: json['url'],
-      date: DateTime.fromMillisecondsSinceEpoch(json['date']),
+      imagePath: json['url'],
+      date: DateTime.fromMillisecondsSinceEpoch(json['date'] * 1000),
       latitude: json['lat'],
       longitude: json['lng'],
     );
@@ -61,7 +61,7 @@ class Image extends CreateImage {
   @override
   List<Object?> get props => [
         id,
-        imageUrl,
+        imagePath,
         date,
         latitude,
         longitude,
@@ -73,7 +73,7 @@ extension DomainImageMapper on Image {
     return ImageDb(
       id: id,
       dateTime: date,
-      imagePath: imageUrl,
+      imagePath: imagePath,
       latitude: latitude,
       longitude: longitude,
     );

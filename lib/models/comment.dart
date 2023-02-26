@@ -24,7 +24,7 @@ class Comment extends CreateComment {
   static Comment fromJson(Map<String, dynamic> json) {
     return Comment(
       id: json['id'],
-      date: json['date'],
+      date: DateTime.fromMillisecondsSinceEpoch(json['date'] * 1000),
       text: json['text'],
     );
   }

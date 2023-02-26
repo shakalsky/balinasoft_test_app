@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:balinasoft_test_app/data/hive/constants.dart';
 import 'package:balinasoft_test_app/models/image.dart';
 import 'package:flutter/foundation.dart';
@@ -15,29 +13,27 @@ class ImageDb {
   @HiveField(1)
   final DateTime dateTime;
   @HiveField(2)
-  final String? imagePath;
+  final String imagePath;
   @HiveField(3)
-  final Double latitude;
+  final double? latitude;
   @HiveField(4)
-  final Double longitude;
+  final double? longitude;
 
   const ImageDb({
     required this.id,
     required this.dateTime,
-    this.imagePath,
-    required this.latitude,
-    required this.longitude,
+    required this.imagePath,
+    this.latitude,
+    this.longitude,
   });
-}
 
-extension ImageMapper on ImageDb {
-  Image fromHive() {
+  apiFromHive() {
     return Image(
       id: id,
       date: dateTime,
       latitude: latitude,
-      longitude: latitude,
-      imageUrl: imagePath,
+      longitude: longitude,
+      imagePath: imagePath,
     );
   }
 }

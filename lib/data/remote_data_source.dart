@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:balinasoft_test_app/data/interfaces/i_remote_data_source.dart';
 import 'package:balinasoft_test_app/models/comment.dart';
@@ -9,7 +10,7 @@ import 'package:http/http.dart';
 const _baseUrl = 'https://junior.balinasoft.com/';
 
 const _apiPath = "api/";
-const _commentPath = "comment/";
+const _commentPath = "/comment/";
 const _imagePath = "image/";
 const _accountPath = "account/";
 
@@ -19,13 +20,15 @@ const _sighUpPath = "signup/";
 class RemoteDataSource implements IRemoteDataSource {
   Map<String, String> _headers(String? token) {
     return {
-      'Authorization': 'Bearer $token',
-      'Content-Type': 'application/json',
+      HttpHeaders.authorizationHeader: '',
+      if (token != null) "Access-Token": token,
+      HttpHeaders.contentTypeHeader: 'application/json;charset=UTF-8',
+      HttpHeaders.acceptHeader: 'application/json;charset=UTF-8',
     };
   }
 
   @override
-  Future<Map<String, dynamic>> createComment(
+  Future<bool> createComment(
     String token,
     int imageId,
     CreateComment comment,
@@ -34,17 +37,19 @@ class RemoteDataSource implements IRemoteDataSource {
       _Http.post,
       _apiPath + _imagePath + imageId.toString() + _commentPath,
       rawJson: comment.toJson(),
+      token: token,
     );
-    return jsonDecode(response.body);
+    return (response.statusCode == 200);
   }
 
   @override
-  Future<Map<String, dynamic>> getComments(String token, int imageId, int page) async {
+  Future<List<dynamic>> getComments(String token, int imageId, int page) async {
     final response = await _request(
       _Http.get,
-      _apiPath + _imagePath + imageId.toString() + _commentPath,
+      '$_apiPath$_imagePath${imageId.toString()}$_commentPath?page=$page',
+      token: token,
     );
-    return jsonDecode(response.body);
+    return jsonDecode(response.body)['data'];
   }
 
   @override
@@ -52,27 +57,30 @@ class RemoteDataSource implements IRemoteDataSource {
     final response = await _request(
       _Http.delete,
       _apiPath + _imagePath + imageId.toString() + _commentPath + commentId.toString(),
+      token: token,
     );
-    return jsonDecode(response.body);
+    return response.statusCode == 200;
   }
 
   @override
-  Future<Map<String, dynamic>> createImage(String token, CreateImage image) async {
+  Future<bool> createImage(String token, CreateImage image, List<int> bytes) async {
     final response = await _request(
       _Http.post,
       _apiPath + _imagePath,
-      rawJson: image.toJson(),
+      rawJson: image.toJson(bytes),
+      token: token,
     );
-    return jsonDecode(response.body);
+    return (response.statusCode == 200);
   }
 
   @override
-  Future<Map<String, dynamic>> getImages(String token, int page) async {
+  Future<List<dynamic>> getImages(String token, int page) async {
     final response = await _request(
       _Http.get,
-      _apiPath + _imagePath,
+      '$_apiPath$_imagePath?page=$page',
+      token: token,
     );
-    return jsonDecode(response.body);
+    return jsonDecode(response.body)['data'];
   }
 
   @override
@@ -80,8 +88,9 @@ class RemoteDataSource implements IRemoteDataSource {
     final response = await _request(
       _Http.delete,
       _apiPath + _imagePath + id.toString(),
+      token: token,
     );
-    return jsonDecode(response.body);
+    return response.statusCode == 200;
   }
 
   @override
@@ -135,7 +144,7 @@ class RemoteDataSource implements IRemoteDataSource {
     }
 
     if (response.statusCode >= 400 && response.statusCode < 600) {
-      debugPrint('url: $url, response: $response');
+      debugPrint('url: $url, response: ${jsonEncode(response.body)}');
     }
 
     return response;
