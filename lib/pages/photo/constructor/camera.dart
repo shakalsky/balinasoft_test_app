@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:image/image.dart';
 
 import 'package:balinasoft_test_app/pages/photo/constructor/constructor_photo_page.dart';
 import 'package:camera/camera.dart';
@@ -68,7 +67,21 @@ class TakePictureScreenState extends State<TakePictureScreen> {
               ),
             );
           } catch (e) {
-            print('|$e');
+            showDialog(
+              context: context,
+              builder: (_) => SimpleDialog(
+                title: const Text('Error'),
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(e.toString()),
+                      const SizedBox(width: 16.0),
+                    ],
+                  )
+                ],
+              ),
+            );
           }
         },
         child: const Icon(Icons.camera_alt),

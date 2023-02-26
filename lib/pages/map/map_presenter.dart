@@ -1,8 +1,6 @@
 import 'package:balinasoft_test_app/data/database_data_source.dart';
 import 'package:balinasoft_test_app/data/remote_data_source.dart';
 import 'package:balinasoft_test_app/data/repositories/image_repository.dart';
-import 'package:balinasoft_test_app/dependency_injector.dart';
-import 'package:balinasoft_test_app/models/user.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 abstract class MapPageContract {
@@ -22,7 +20,6 @@ class MapPagePresenter {
 
   void initMarkers() async {
     final images = await _imageRepository.getLocalImages();
-    print('|||||||||||||||${images.length}');
     for (final image in images) {
       markers.add(
         Marker(

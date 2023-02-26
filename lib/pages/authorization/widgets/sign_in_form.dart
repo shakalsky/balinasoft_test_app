@@ -1,6 +1,5 @@
 import 'package:balinasoft_test_app/pages/authorization/widgets/button.dart';
 import 'package:balinasoft_test_app/pages/authorization/widgets/input_field.dart';
-import 'package:balinasoft_test_app/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
 
 typedef LoginFunction = Function(String, String);
@@ -46,6 +45,5 @@ class _SignInFormState extends State<SignInForm> {
         ],
       ),
     );
-    ;
   }
 }

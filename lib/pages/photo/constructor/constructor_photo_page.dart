@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:balinasoft_test_app/pages/home/home_page.dart';
 import 'package:balinasoft_test_app/pages/photo/constructor/constructor_photo_presenter.dart';
-import 'package:balinasoft_test_app/pages/photo/gallery/photo_page.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
 
