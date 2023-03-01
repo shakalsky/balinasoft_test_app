@@ -1,5 +1,4 @@
 import 'package:balinasoft_test_app/pages/home/home_presenter.dart';
-import 'package:balinasoft_test_app/pages/map/map_page.dart';
 import 'package:balinasoft_test_app/pages/photo/gallery/photo_page.dart';
 import 'package:flutter/material.dart';
 
@@ -48,51 +47,38 @@ class _HomePageState extends State<HomePage> implements HomePageContract {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const PhotoPage(),
-                    ),
-                  );
+                  if (ModalRoute.of(context)?.settings.name == 'home') {
+                    Navigator.pop(context);
+                  } else {
+                    Navigator.of(context).pushNamed('home');
+                  }
                 },
-                child: Row(
-                  children: const [
-                    SizedBox(
-                      width: 16.0,
-                    ),
-                    Icon(
-                      Icons.account_circle,
-                      size: 48.0,
-                    ),
-                    SizedBox(
-                      width: 16.0,
-                    ),
-                    Text('Photos'),
-                    Spacer(),
-                  ],
+                child: Container(
+                  color: const Color.fromARGB(0, 255, 255, 255),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: const [
+                      SizedBox(width: 16.0),
+                      Icon(Icons.account_circle, size: 48.0),
+                      SizedBox(width: 16.0),
+                      Text('Photos'),
+                    ],
+                  ),
                 ),
               ),
               GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const MapPage(),
-                    ),
-                  );
-                },
-                child: Row(
-                  children: const [
-                    SizedBox(
-                      width: 16.0,
-                    ),
-                    Icon(
-                      Icons.public,
-                      size: 48.0,
-                    ),
-                    SizedBox(
-                      width: 16.0,
-                    ),
-                    Text('Map'),
-                  ],
+                onTap: () => Navigator.of(context).pushNamed('map'),
+                child: Container(
+                  color: const Color.fromARGB(0, 255, 255, 255),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: const [
+                      SizedBox(width: 16.0),
+                      Icon(Icons.public, size: 48.0),
+                      SizedBox(width: 16.0),
+                      Text('Map'),
+                    ],
+                  ),
                 ),
               ),
             ],
